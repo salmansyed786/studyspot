@@ -12,7 +12,7 @@ class CommunityController extends Controller
     public function index() {
         return view('Communities.index', [
             'communities' => Community::latest()->get(),
-            'posts' => Post::latest()->filter(request(['tag', 'search']))->get()
+            'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(9)
         ]);
     }
 
@@ -27,7 +27,7 @@ class CommunityController extends Controller
         return view('Communities.show', [
             'communities' => Community::latest()->get(),
             'cmty' => $community,
-            'posts' => Post::where('community_id', '=', $community->id)->filter(request(['tag', 'search']))->get()
+            'posts' => Post::where('community_id', '=', $community->id)->filter(request(['tag', 'search']))->latest()->paginate(9)
         ]);
     }
 
@@ -41,7 +41,9 @@ class CommunityController extends Controller
     }
 
     // Store a new post
-    public function storePost() {
+    public function storePost(Request $request) {
+        $community_id = $request->input('community_id');
+
         $attributes = request()->validate([
             'title' => 'required',
             'tags' => 'required',
@@ -50,8 +52,13 @@ class CommunityController extends Controller
             'author' => 'required',
         ]);
 
-        Post::create($attributes);
+        if ($request->hasFile('image')) {
+            $attributes['image'] = $request->file('image')->store('images', 'public');
+        }
 
-        return redirect('/' );
+        Post::create($attributes);
+        $community = Community::where('id', $community_id)->first();
+
+        return redirect('/c/' . $community->community_name)->with('message', 'post created successfully 🎉   ');
     }
 }

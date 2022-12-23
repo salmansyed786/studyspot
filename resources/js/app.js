@@ -13,6 +13,11 @@ $(document).ready(function(){
         community = JSON.parse(JSON.stringify(community));
 
         var color = $(".sticky-note").css("background-color");
+        var img_div = "";
+
+        if (post['image'] != null) {            
+            img_div = '<img src="storage/' + post['image'] + '" class="img-fluid" alt="" style="width: 125px; height: 100px;">';
+        }
 
         $('#enlarged-data').html(
                 `<div class="modal-content" style="width: 100%; height: 400px; padding: 15px; border-radius: 5px; background-color:`+color+`">
@@ -22,7 +27,10 @@ $(document).ready(function(){
                     </div>
                     <div class="modal-body">
                         <div class="container" style="padding-left: 15px;">
-                            <div id="descrip">`+ post['description'] +`</div>
+                            <div id="descrip">
+                                `+ post['description'] + img_div +`
+                            </div>
+                            
                             <p style="font-size: 12px;">`+ community['community_name'] +` • ` + post['author'] + ` • ` + post['created_at'] + `</p>
                             <div class="interactions">
                                 <button tabindex="-1" class="bi bi-hand-thumbs-up interaction-btn">

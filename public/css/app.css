@@ -1,7 +1,3 @@
-/* @tailwind base; */
-/* @tailwind components; */
-/* @tailwind utilities; */
-
 :root {
     --mich-blue: #00274C;
     --mich-maize: #FFCB05;
@@ -116,8 +112,8 @@ body {
 
     margin-left: 72px;
     margin-top: 10px;
-    padding-left: 85px;
-    padding-right: 85px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .body-wrapper {
@@ -173,7 +169,8 @@ body {
     align-items: center;
     justify-content: center; 
     background-color: var(--mich-blue); 
-    color: white;
+    color: white; 
+    height: 50px;
     border-radius: 4px 4px 0 0;
     height: 60px;
     padding: 35px;
@@ -284,6 +281,9 @@ a:link,  a:visited, a:hover{
 
 #community-options {
     margin-top: 10px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #new-post {
@@ -626,6 +626,8 @@ small {
 #descrip {
     max-height: 215px;
     min-height: 215px;
+    display: flex;
+    flex-direction: column;
 }
 
 #descrip p {

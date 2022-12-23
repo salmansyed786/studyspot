@@ -19,12 +19,14 @@ return new class extends Migration
                 $table->string(column: 'author');
                 $table->string(column: 'title');
                 $table->longText(column: 'description');
-                $table->integer(column: 'comments')->default('0')->change();
-                $table->integer(column: 'likes')->default('0')->change();
-                $table->integer(column: 'dislikes')->default('0')->change();
-                $table->string(column: 'tags');
+                $table->integer(column: 'comments')->default('0');
+                $table->integer(column: 'likes')->default('0');
+                $table->integer(column: 'dislikes')->default('0');
+                $table->integer(column: 'views')->default('0');
+                $table->string(column: 'image')->nullable();
+                $table->string(column: 'color')->nullable();
+                $table->string(column: 'tags')->nullable();
                 $table->timestamps();
-
             });
         }
 

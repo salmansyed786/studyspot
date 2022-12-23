@@ -25,6 +25,7 @@ class PostFactory extends Factory
             'comments' => fake()->numberBetween(0, 100),
             'likes' => fake()->numberBetween(0, 100),
             'dislikes' => fake()->numberBetween(0, 100),
+            'views' => fake()->numberBetween(0, 100),
             'tags' => fake()->words(4, true),
         ];
     }

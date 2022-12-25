@@ -3,8 +3,6 @@
     use App\Models\Post;
 @endphp
 
-@include('components.modals')
-
 <x-layout>
     <div class="container-fluid" id="main-container">
         <!-- Sidebar (Logged Out) -->
@@ -22,6 +20,13 @@
                         class="btn material-symbols-outlined create-btn" data-toggle="tooltip" data-placement="right"
                         title="Create Post" id="createPostBtn">
                         library_add
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button tabindex="-1" data-bs-toggle="modal" data-bs-target="#cmtyModal" type="button"
+                        class="btn material-symbols-outlined create-btn" data-toggle="tooltip" data-placement="right"
+                        title="Create Community" id="createCmtyBtn">
+                        group_add
                     </button>
                 </li>
                 <li class="nav-item">
@@ -61,7 +66,7 @@
         <!-- Main Body -->
         <div class="container-fluid main-body">
             <div class="container" style="display: flex;">
-                <!-- Body -->
+                <!-- Body --> 
                 <div class="container body-wrapper">
                     <div class="card text-center" style="height: 100%;">
                         <div class="card-header">
@@ -142,7 +147,7 @@
                     <div class="container" style="margin-bottom: 10px;">
                         <div class="card text-center" id="cmty-card">
                             <div class="card-header" style="display: flex; justify-content: center; max-height: 200px">
-                                <img class="card-img-top" src="{{ asset('images/cat.png') }}" alt="Community Image" style="border: 1px #FFCB05 solid; border-radius: 2px;" height="150">
+                                <img class="card-img-top" src="{{ asset('images/study.png') }}" alt="Community Image" style="border: 1px #FFCB05 solid; border-radius: 2px; height: 150px; width: 150px;">
                             </div>
 
                             <div class="card-body" style="display: flex; align-items: center; flex-direction: column;">
@@ -254,3 +259,5 @@
 
     </div>
 </x-layout>
+
+@include('components.modals')

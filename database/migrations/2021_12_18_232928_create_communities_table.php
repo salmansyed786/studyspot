@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string(column: 'community_name');
             $table->longText(column: 'about');
-            $table->integer(column: 'members');
-            $table->integer(column: 'posts');
+            $table->integer(column: 'members')->default(0);
+            $table->integer(column: 'posts')->default(0);
+            $table->string(column: 'image')->nullable();
             $table->timestamps();
         });
     }

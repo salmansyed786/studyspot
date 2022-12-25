@@ -2,11 +2,11 @@
 
 {{-- Sticky Post --}}
 <li class="note">
-    <a class="sticky-note">
+    <a class="sticky-note" data-post={{ $post }} style="background-color: {{ $post['color'] }}; color: {{ $post['textColor'] }}">
         <div class="sticky-note-info">
             <small>{{ $community->community_name }}</small>
             <button class="btn bi bi-arrows-angle-expand" data-post='{{ json_encode($post) }}' data-community='{{ json_encode($community) }}'
-                data-bs-toggle="modal" data-bs-target="#noteModal">
+                data-bs-toggle="modal" data-bs-target="#noteModal-{{$post->id}}" style="color: {{ $post['textColor'] }}">
             </button>
         </div> 
         <div class="sticky-note-title">
@@ -36,3 +36,10 @@
         </div>
     </a>
 </li>
+
+<!-- Enlarged Post -->
+<div class="modal fade" id="noteModal-{{$post->id}}" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered fetched-data" style="width: 450px; height: 400px;" id="enlarged-data">
+        <x-enlarged-post :post="$post" :community="$community" />
+    </div>
+</div>

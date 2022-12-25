@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            // encrypted password
+            
+
             $table->string('password');
             $table->string('file_path'); // profile pic
             $table->rememberToken();

@@ -13,18 +13,19 @@ function loginAlert() {
 }
 $(document).ready(function () {
   // Post Modal Get Data
-  $('#noteModal').on('show.bs.modal', function (e) {
-    var post = $(e.relatedTarget).data('post');
-    post = JSON.parse(JSON.stringify(post));
-    var community = $(e.relatedTarget).data('community');
-    community = JSON.parse(JSON.stringify(community));
-    var color = $(".sticky-note").css("background-color");
-    var img_div = "";
-    if (post['image'] != null) {
-      img_div = '<img src="storage/' + post['image'] + '" class="img-fluid" alt="" style="width: 125px; height: 100px;">';
-    }
-    $('#enlarged-data').html("<div class=\"modal-content\" style=\"width: 100%; height: 400px; padding: 15px; border-radius: 5px; background-color:" + color + "\">\n                    <div class=\"modal-header border-0\">\n                        <h1 class=\"modal-title fs-5\" id=\"noteModalLabel\">" + post['title'] + "</h1>\n                        <button tabindex=\"-1\" type=\"button\" class=\"btn material-symbols-outlined\" data-bs-dismiss=\"modal\">close_fullscreen</button>\n                    </div>\n                    <div class=\"modal-body\">\n                        <div class=\"container\" style=\"padding-left: 15px;\">\n                            <div id=\"descrip\">\n                                " + post['description'] + img_div + "\n                            </div>\n                            \n                            <p style=\"font-size: 12px;\">" + community['community_name'] + " \u2022 " + post['author'] + " \u2022 " + post['created_at'] + "</p>\n                            <div class=\"interactions\">\n                                <button tabindex=\"-1\" class=\"bi bi-hand-thumbs-up interaction-btn\">\n                                    <span class=\"like-count\">" + post['likes'] + "</span>\n                                </button>\n                                <button tabindex=\"-1\" class=\"bi bi-hand-thumbs-down interaction-btn\">\n                                        <span class=\"dislike-count\">" + post['dislikes'] + "</span>\n                                </button>\n                                <button tabindex=\"-1\" class=\"bi bi-chat-left-text interaction-btn\">\n                                    <span class=\"comment-count\">" + post['comments'] + "</span>\n                                </button>\n                            </div>\n                        </div>\n                    </div>\t\t\n                </div>");
-  });
+  // $('#noteModal').on('show.bs.modal', function (e) {
+  //     var post = $(e.relatedTarget).data('post');
+  //     post = JSON.parse(JSON.stringify(post));
+
+  //     var community = $(e.relatedTarget).data('community');
+  //     community = JSON.parse(JSON.stringify(community));
+
+  //     var color = $(".sticky-note").css("background-color");
+
+  //     $('#enlarged-data').html(
+
+  //     );
+  // });
 
   // Like System
   $(".like, .unlike").click(function () {
@@ -136,6 +137,8 @@ $(document).ready(function () {
     placement: "right"
   });
 });
+
+// <button tabindex="-1" type="button" class="btn material-symbols-outlined" data-bs-dismiss="modal">close_fullscreen</button>
 
 /***/ }),
 

@@ -126,17 +126,18 @@
                     <!-- Create a post -->
                     <div class="container-fluid create-post-wrapper">
                         <div class="create-title">
-                            <label>Create a Post</label>
+                            <label>Edit Post</label>
                             <a tabindex="0" class="btn material-symbols-outlined create-btn" role="button"
                                 id="guidelines-popover">info</a>
                         </div>
-                        <form method="POST" action="/posts" id="new-post" enctype="multipart/form-data">
-                            @csrf                                        
+                        <form method="post" action="/c/{{$cmty->community_name}}/{{$post->id}}" id="new-post" enctype="multipart/form-data">
+                            @csrf                   
+                            @method('PUT')
                             {{-- Post Title --}}
                             <div class="form-group mb-2">
                                 <label for="titleInput">Title: </label>
                                 <input type="text" class="form-control" id="titleInput" placeholder="My Fun Study Session"
-                                    name="title" autocomplete="off" value="{{old('title')}}" required>
+                                    name="title" autocomplete="off" value="{{ $post->title }}" required>
                                 @error('title')
                                     <p class="mt-1 small text-danger">{{$message}}</p>
                                 @enderror
@@ -146,7 +147,7 @@
                             <div class="form-group mb-2">
                                 <label for="tagsInput">Tags: </label>
                                 <input type="text" class="form-control" id="tagsInput" placeholder="Example: fun, study, help"
-                                    name="tags" autocomplete="off" value="{{old('tags')}}">
+                                    name="tags" autocomplete="off" value="{{ $post->tags }}">
                                 @error('tags')
                                     <p class="mt-1 small text-danger">{{$message}}</p>
                                     @enderror
@@ -155,7 +156,7 @@
                             {{-- Post Description --}}
                             <div class="form-group mb-2">
                                 <label for="exampleFormControlTextarea1">Description:</label>
-                                <textarea class="my_tinymce form-control" rows="3" name="description">{{old('description')}}</textarea>
+                                <textarea class="my_tinymce form-control" rows="3" name="description">{{ $post->description }}</textarea>
                                 @error('description')
                                     <p class="mt-1 small text-danger">{{$message}}</p>
                                 @enderror
@@ -168,34 +169,13 @@
                                     <div class="form-group col-md-8" style="display: flex;">
                                         {{-- Select a Community --}}
                                         <select id="inputState" class="form-select" name="community_id" required>
-                                            {{-- Directed from /create/post --}}
-                                            @if (empty($selectedCmty))
-                                                <option selected disabled>Select a Community</option>
-                                                {{-- Print out all communities --}}
-                                                @foreach ($communities as $community)
-                                                    {{-- If there is an error, keep the old value --}}
-                                                    @if (old('community_id') == $community->id)
-                                                        <option selected value="{{old('community_id')}}">{{$community->community_name}}</option>
-                                                    @else
-                                                        <option value="{{$community->id}}">{{$community->community_name}}</option>
-                                                    @endif
-                                                @endforeach
-                                            {{-- Directed from /c/community_name/create --}}
-                                            @else
-                                                <option selected value="{{$selectedCmty->id}}">{{$selectedCmty->community_name}}</option>
-                                                @foreach ($communities as $community)
-                                                    {{-- If there is an error, keep the old value --}}
-                                                    @if (old('community_id') == $community->id)
-                                                        <option selected value="{{old('community_id')}}">{{$community->community_name}}</option>
-                                                        @continue
-                                                    @endif
-                                                    {{-- If the community is the same as the selected community, skip it --}}
-                                                    @if ($community->id == $selectedCmty->id)
-                                                        @continue
-                                                    @endif
+                                            @foreach ($communities as $community)
+                                                @if ($community->id == $cmty->id)
+                                                    <option selected value="{{$cmty->id}}">{{$cmty->community_name}}</option>
+                                                @else
                                                     <option value="{{$community->id}}">{{$community->community_name}}</option>
-                                                @endforeach
-                                            @endif
+                                                @endif
+                                            @endforeach
                                         </select>
                                         {{-- Create a Community --}}
                                         <button tabindex="-1" data-bs-toggle="modal" data-bs-target="#cmtyModal" type="button"
@@ -212,15 +192,17 @@
 
                             {{-- Add an image --}}
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*">
+                                <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*" value="{{ $post->image }}">
                                 <label class="custom-file-label" for="customFile">Add an image</label>
                             </div>
+                            <img src= {{ $post->image ? asset('/storage/' . $post->image) : asset('/images/no-image.png') }} class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
+
 
                             {{-- Color --}}
                             <div class="container" style="display: flex;">
                                 <label for="exampleColorInput" class="form-label">Post Color:</label>
                                 <input type="color" class="form-control form-control-color" id="exampleColorInput" 
-                                            value="#FFFF99" title="Choose your color" name="color">
+                                            value="{{ $post->color }}" title="Choose your color" name="color">
                             </div>
 
                             {{-- Author --}}
@@ -228,9 +210,9 @@
                     
                             {{-- Submit Button --}}
                             <div class="post-btns">
-                                <button type="submit" id="post-btn" name="create-post-submit" class="btn">Post</button>
-                                {{-- BAck button --}}
-                                <a href="{{($selectedCmty)? "/c/".$selectedCmty->community_name : "/" }}" class="btn">Back</a>
+                                <button type="submit" id="post-btn" name="create-post-submit" class="btn">Update</button>
+                                {{-- Back Button --}}
+                                <a href="/c/{{$cmty->community_name}}" class="btn">Back</a>
                             </div>
                         </form>
                     </div>
@@ -253,3 +235,6 @@
         </div>
     </body>
 </x-layout>
+
+
+

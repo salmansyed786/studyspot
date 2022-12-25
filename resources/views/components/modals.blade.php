@@ -60,6 +60,7 @@
             </div>
         </div>
     </div>
+
     <!-- Login in Modal -->
     <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="login-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -96,11 +97,71 @@
             </div>
         </div>
     </div>
+
     <!-- Create Comment Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
         <div class="modal-dialog fetch-comments">
         </div>
     </div>
+
+    @if (isset($cmty))
+    <!-- Edit Post Modal -->
+    <div class="modal fade" id="cmtyEditModal" tabindex="-1" aria-labelledby="cmtyEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cmtyEditModalLabel">Edit Community</h1>
+                    <form action="/c/{{ $cmty['community_name'] }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-primary fa-solid fa-trash bg-danger p-1 text-light"
+                            title="delete" onclick="return confirm('Are you sure you want to delete this community and all its posts?')"></button>
+                    </form>
+                    <button tabindex="-1" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form method="post" action="/c/{{$cmty->community_name}}" id="update-cmty" enctype="multipart/form-data">
+                    @csrf                   
+                    @method('PUT')
+
+                    <div class="modal-body">
+                        {{-- Cmty Name --}}
+                        <div class="form-group mb-2">
+                            <label for="titleInput">Community Name: </label>
+                            <input type="text" class="form-control" id="titleInput" placeholder="My Fun Study Session"
+                                name="community_name" autocomplete="off" value="{{ $cmty->community_name }}" required>
+                            @error('title')
+                                <p class="mt-1 small text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
+                    
+                        {{-- Cmty About --}}
+                        <div class="form-group mb-2">
+                            <label for="exampleFormControlTextarea1">Description:</label>
+                            <textarea class="my_tinymce form-control" rows="3" name="about">{{ $cmty->about }}</textarea>
+                            @error('about')
+                                <p class="mt-1 small text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Add an image --}}
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*" value="{{ $cmty->image }}">
+                            <label class="custom-file-label" for="customFile">Add an image</label>
+                        </div>
+                        <img src= {{ $cmty->image ? asset('/storage/' . $cmty->image) : asset('/images/no-image.png') }} class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button tabindex="-1" type="submit" name="update-cmty-submit"
+                            class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <!-- Create Community Modal -->
     <div class="modal fade" id="cmtyModal" tabindex="-1" aria-labelledby="cmtyModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -110,32 +171,49 @@
                     <button tabindex="-1" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form method="post" action="scripts/create-cmty.php">
+                <form method="POST" action="/communities" id="new-cmty" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        @csrf
                         <div class="form-body" style="padding: 15px;">
                             <!-- Cmty info -->
                             <div class="form-group">
                                 <div class="form-group input-field">
                                     <label for="inputFirstName">Community Name:</label>
-                                    <input type="text" class="form-control" id="inputCmtyName" name="cmtyName"
+                                    <input type="text" class="form-control" id="inputCmtyName" name="community_name"
                                         placeholder="">
+                                    @error('community_name')
+                                        <p class="mt-1 small text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                                 <div class="form-group input-field">
                                     <label for="inputLastName">About the Community:</label>
-                                    <textarea class="form-control" id="inputAbtCmty" name="aboutCmty"
+                                    <textarea class="form-control" id="inputAbtCmty" name="about"
                                         placeholder=""></textarea>
+                                    @error('about')
+                                        <p class="mt-1 small text-danger">{{$message}}</p>
+                                    @enderror
+                                </div>
+                                <div class="form-group input-field">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*">
+                                        <label class="custom-file-label" for="customFile">Add an image</label>
+                                    </div>
+                                    @error('image')
+                                        <p class="mt-1 small text-danger">{{$message}}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button tabindex="-1" type="submit" name="create-cmty-submit"
-                                class="btn btn-primary">Create</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button tabindex="-1" type="submit" name="create-cmty-submit"
+                            class="btn btn-primary">Create</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
     <!-- Advanced Search Modal -->
     <div class="modal fade" id="advancedsearch-modal" tabindex="-1" aria-labelledby="advancedsearchLabel"
         aria-hidden="true">
@@ -211,3 +289,4 @@
             </div>
         </div>
     </div>
+    

@@ -24,7 +24,8 @@ return new class extends Migration
                 $table->integer(column: 'dislikes')->default('0');
                 $table->integer(column: 'views')->default('0');
                 $table->string(column: 'image')->nullable();
-                $table->string(column: 'color')->nullable();
+                $table->string(column: 'color')->default('#FFFF99');
+                $table->string(column: 'textColor')->default('#000000');
                 $table->string(column: 'tags')->nullable();
                 $table->timestamps();
             });

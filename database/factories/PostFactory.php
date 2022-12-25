@@ -17,6 +17,7 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $fakeColor = fake()->hexColor();
         return [
             'author' => fake()->name(),
             'title' => fake()->sentence(),
@@ -26,7 +27,16 @@ class PostFactory extends Factory
             'likes' => fake()->numberBetween(0, 100),
             'dislikes' => fake()->numberBetween(0, 100),
             'views' => fake()->numberBetween(0, 100),
+            'color' => $fakeColor,
+            'textColor' => calculateTextColor($fakeColor),
             'tags' => fake()->words(4, true),
         ];
     }
+}
+
+// Calculate the text color based on the background color
+function calculateTextColor($color) {
+    list($r, $g, $b) = sscanf($color, "#%02x%02x%02x");
+    $brightness = round(((intval($r) * 299) + (intval($g) * 587) + (intval($b) * 114)) / 1000);
+    return ($brightness > 125) ? '#000000' : '#FFFFFF';
 }

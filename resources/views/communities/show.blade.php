@@ -18,6 +18,13 @@
             <!-- Options -->
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
                 <li class="nav-item">
+                    <button tabindex="-1" data-bs-toggle="modal" data-bs-target="#cmtyModal" type="button"
+                        class="btn material-symbols-outlined create-btn" data-toggle="tooltip" data-placement="right"
+                        title="Create Community" id="createCmtyBtn">
+                        group_add
+                    </button>
+                </li>
+                <li class="nav-item">
                     <!-- Log in btn trigger modal -->
                     <button type="button" class="btn navbar-btn create-btn material-symbols-outlined"
                         data-bs-toggle="modal" data-bs-target="#login-modal" data-toggle="tooltip"
@@ -135,13 +142,17 @@
                     <div class="container" style="margin-bottom: 10px;">
                         <div class="card text-center" id="cmty-card">
                             <div class="card-header" style="display: flex; justify-content: center; max-height: 200px">
-                                <img class="card-img-top" src="{{ asset('images/cat.png') }}" alt="Community Image" style="border: 1px #FFCB05 solid; border-radius: 2px;" height="150">
+                                <img src= {{ $cmty->image ? asset('/storage/' . $cmty->image) : asset('/images/study.png') }} class="img-fluid card-img-top" alt="Community Image" style="border: 1px #FFCB05 solid; border-radius: 2px; height: 150px;">
                             </div>
 
                             <div class="card-body" style="display: flex; align-items: center; flex-direction: column;">
-                                <h5 class="card-title">
-                                    {{$cmty['community_name']}}
-                                </h5>
+                                <span>
+                                    <h5 class="card-title">
+                                        {{$cmty['community_name']}}
+                                    </h5>
+                                    <button data-bs-toggle="modal" data-bs-target="#cmtyEditModal" class="fa-solid fa-pencil btn" title="edit"></button>
+                                </span>
+
                                 <p class="card-text" style="width: 75%; margin: 0;">
                                     {{$cmty['about']}}
                                 </p>

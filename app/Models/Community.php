@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Community extends Model
 {
+    protected $fillable = ['community_name', 'about', 'image', 'posts', 'members'];
+
     use HasFactory;
 }

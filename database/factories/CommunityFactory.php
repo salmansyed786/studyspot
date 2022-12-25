@@ -17,11 +17,8 @@ class CommunityFactory extends Factory
     public function definition()
     {
         return [
-            'community_name' => fake()->word(),
+            'community_name' => fake()->unique()->word(),
             'about' => fake()->paragraph(5),
-            'members' => fake()->numberBetween(0, 100),
-            'posts' => fake()->numberBetween(0, 100),
-            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

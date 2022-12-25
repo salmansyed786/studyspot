@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'tags', 'description', 'author', 'community_id', 'image', 'color'];
+    protected $fillable = ['title', 'tags', 'description', 'author', 'community_id', 'image', 'color', 'views', 'likes', 'dislikes', 'comments', 'textColor'];
 
     public function scopeFilter($query, array $filters) {
         if ($filters['tag'] ?? false) {

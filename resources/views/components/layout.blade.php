@@ -38,7 +38,11 @@
         <title>studySpot</title>
     </head>
     <body>
-        {{ $slot }}
+        <div class="container-fluid" id="main-container">
+            <x-navbar/>
+            {{ $slot }}
+        </div>
+        <x-flash-message/>
     </body>    
 </html>
 

@@ -1,4 +1,4 @@
-@props(['post', 'community'])
+@props(['post', 'community', 'username'])
 
 {{-- Sticky Post --}}
 <li class="note">
@@ -13,7 +13,7 @@
             <h6>{{ $post->title }}</h6>
         </div>
         <div class="sticky-note-info">
-            <small>{{$post->author}} • {{$post->created_at}}</small>
+            <small>{{ $username }} • {{ $post->created_at }}</small>
         </div>
         <div class="interactions">
             <button tabindex="-1"
@@ -40,6 +40,6 @@
 <!-- Enlarged Post -->
 <div class="modal fade" id="noteModal-{{$post->id}}" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered fetched-data" style="width: 450px; height: 400px;" id="enlarged-data">
-        <x-enlarged-post :post="$post" :community="$community" />
+        <x-enlarged-post :post="$post" :community="$community" :username="$username" />
     </div>
 </div>

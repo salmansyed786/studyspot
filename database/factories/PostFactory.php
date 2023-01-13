@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Community;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class PostFactory extends Factory
     {
         $fakeColor = fake()->hexColor();
         return [
-            'author' => fake()->name(),
+            'user_id' => $this->faker->randomElement(User::pluck('id')),
             'title' => fake()->sentence(),
             'community_id' => $this->faker->randomElement(Community::pluck('id')),
             'description' => fake()->paragraph(5),

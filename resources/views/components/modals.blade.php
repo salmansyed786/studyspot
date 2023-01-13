@@ -10,41 +10,61 @@
                 <div class="modal-body">
                     <!-- Main Body -->
                     <div class="container-fluid signup-container" style="padding-bottom: 0;">
-                        <?php
-                                    ?>
-                        <form class="signup-form" method="post" action="scripts/signup.php">
+                        <!-- Registeration Form -->
+                        <form id="signup-form" method="POST" action="/register" enctype="multipart/form-data">
+                            @csrf       
                             <div class="form-body">
                                 <!-- User info -->
                                 <div class="form-group">
+                                    {{-- Username --}}
                                     <div class="form-group input-field">
                                         <label for="inputUserName">Username:</label>
                                         <input type="text" class="form-control" name="username" for="inputUserName"
-                                            placeholder="" autocomplete="off">
+                                            placeholder="" autocomplete="off" value="{{old('username')}}">
+                                        @error('username')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
+                                    {{-- Email --}}
                                     <div class="form-group input-field">
                                         <label for="inputEmail4">Email:</label>
-                                        <input type="email" class="form-control" name="mail" for="inputEmail4"
-                                            placeholder="" autocomplete="off">
+                                        <input type="email" class="form-control" name="email" for="inputEmail4"
+                                            placeholder="" autocomplete="off" value="{{old('email')}}">
+                                        @error('email')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
+                                    {{-- Password --}}
                                     <div class="form-group input-field">
                                         <label for="inputPassword4">Password:</label>
                                         <input type="password" class="form-control" name="password" for="inputPassword4"
                                             placeholder="">
+                                        @error('password')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
+                                    {{-- Confirm Password --}}
                                     <div class="form-group input-field">
                                         <label for="inputPassword5">Confirm Password:</label>
-                                        <input type="password" class="form-control" name="password-repeat"
+                                        <input type="password" class="form-control" name="password_confirmation"
                                             for="inputPassword5" placeholder="">
+                                        @error('password_confirmation')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
-                                    <!-- Profile photo -->
+                                    {{-- Profile photo --}}
                                     <div class="form-group input-field">
-                                        <label for="file-upload">
-                                            Upload a profile picture:
-                                        </label>
-                                        <br>
-                                        <input type="file" name="photo" accept="image/png, image/jpeg, image/jpg">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*" value="{{old('image')}}">
+                                            <label class="custom-file-label" for="customFile">Add an image</label>
+                                        </div>
+                                        @error('image')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
-                                    <!-- Login option -->
+                                    {{-- Form ID --}}
+                                    <input type="hidden" name="form_id" value="signup-form">
+                                    {{-- Login option --}}
                                     <div class="form-group input-field">
                                         Already a member? <button id="already_registered" type="button"
                                             style="cursor: pointer; color: #00274C; text-decoration: underline;">log in</button>
@@ -72,19 +92,36 @@
                 <div class="modal-body">
                     <!-- Main Body -->
                     <div class="container-fluid signup-container" style="padding-bottom: 0;">
-                        <form method="post" action="scripts/login.php" class="login-form">
+                        {{-- Login Form --}}
+                        <form method="POST" action="/users/authenticate" id="login-form">
+                            @csrf
                             <div class="form-body">
                                 <!-- User info -->
                                 <div class="form-group">
+                                    <!-- Username -->
                                     <div class="form-group input-field">
-                                        <label for="input4">Email or Username:</label>
-                                        <input type="text" class="form-control" name="mailUsername" id="input4"
-                                            placeholder="" autocomplete="off">
+                                        <label for="input4">Username:</label>
+                                        <input type="text" class="form-control" name="username1" id="input4"
+                                            placeholder="" autocomplete="off" value="{{old('username1')}}">
+                                        @error('username1')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
                                     </div>
+                                    <!-- Password -->
                                     <div class="form-group input-field">
                                         <label for="inputPassword4">Password:</label>
-                                        <input type="password" class="form-control" name="pwd" id="inputPassword4"
+                                        <input type="password" class="form-control" name="password1" id="inputPassword4"
                                             placeholder="">
+                                        @error('password1')
+                                            <p class="mt-1 small text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                    {{-- Form ID --}}
+                                    <input type="hidden" name="form_id" value="login-form">
+                                    <!-- Login option -->
+                                    <div class="form-group input-field">
+                                        New to studySpot? 
+                                        <button id="no_account" type="button" style="cursor: pointer; color: #00274C; text-decoration: underline;">Register</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +157,7 @@
                     <button tabindex="-1" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form method="post" action="/c/{{$cmty->community_name}}" id="update-cmty" enctype="multipart/form-data">
+                <form method="POST" action="/c/{{$cmty->community_name}}" id="update-cmty" enctype="multipart/form-data">
                     @csrf                   
                     @method('PUT')
 
@@ -129,7 +166,7 @@
                         <div class="form-group mb-2">
                             <label for="titleInput">Community Name: </label>
                             <input type="text" class="form-control" id="titleInput" placeholder="My Fun Study Session"
-                                name="community_name" autocomplete="off" value="{{ $cmty->community_name }}" required>
+                                name="community_name" autocomplete="off" value="{{ $cmty->community_name }}">
                             @error('title')
                                 <p class="mt-1 small text-danger">{{$message}}</p>
                             @enderror
@@ -202,6 +239,8 @@
                                         <p class="mt-1 small text-danger">{{$message}}</p>
                                     @enderror
                                 </div>
+                                {{-- Owner --}}
+                                <input type="hidden" id="user_id" name="user_id" value="{{Auth::id()}}">
                             </div>
                         </div>
                     </div>

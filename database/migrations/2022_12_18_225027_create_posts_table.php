@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('posts')) {
             Schema::create('posts', function (Blueprint $table) {
                 $table->id();
-                $table->string(column: 'author');
                 $table->string(column: 'title');
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                // $table->string(column: 'author');
                 $table->longText(column: 'description');
                 $table->integer(column: 'comments')->default('0');
                 $table->integer(column: 'likes')->default('0');
@@ -27,13 +27,11 @@ return new class extends Migration
                 $table->string(column: 'color')->default('#FFFF99');
                 $table->string(column: 'textColor')->default('#000000');
                 $table->string(column: 'tags')->nullable();
+                $table->foreignId(column: 'community_id')->nullable()->constrained(table: 'communities')->cascadeOnDelete();
                 $table->timestamps();
+    
+                // $table->foreign('author')->references('username')->on('users')->onDelete('cascade');
             });
-        }
-
-        Schema::table('posts', function (Blueprint $table) {
-            $table->foreignId(column: 'community_id')->nullable()->constrained(table: 'communities')->cascadeOnDelete();
-        });
     }
 
     /**

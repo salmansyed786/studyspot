@@ -8,46 +8,7 @@
     <body>
         <div class="container-fluid" id="main-container">
             <!-- Navbar -->
-            <nav class="d-flex flex-column flex-shrink-0 bg-light my-navbar" style="width: 4.5rem;">
-                <!-- studySpot Brand and Icon -->
-                <a class="navbar-brand border-bottom" href="/">
-                    <div class="brand-wrapper">
-                        <img src="{{ asset('images/study.png') }}" alt="studySpot Logo" width="35" title="studySpot">
-                    </div>
-                </a>
-                <!-- Options: create post, create cmty, browse cmties, and help -->
-                <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
-                    <li class="nav-item">
-                        <button tabindex="-1" onclick="location.href='/create/post'" type="button"
-                            class="btn material-symbols-outlined create-btn" data-toggle="tooltip" data-placement="right"
-                            title="Create Post" id="createPostBtn">
-                            library_add
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button tabindex="-1" data-bs-toggle="modal" data-bs-target="#cmtyModal" type="button"
-                            class="btn material-symbols-outlined create-btn" data-toggle="tooltip" data-placement="right"
-                            title="Create Community" id="createCmtyBtn">
-                            group_add
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <!-- Log in btn trigger modal -->
-                        <button type="button" class="btn navbar-btn create-btn material-symbols-outlined"
-                            data-bs-toggle="modal" data-bs-target="#advancedsearch-modal" data-toggle="tooltip"
-                            data-placement="right" title="Search studySpot">
-                            search
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button tabindex="-1" type="button" class="btn material-symbols-outlined create-btn"
-                            data-toggle="tooltip" data-placement="right" title="Help">
-                            help
-                        </button>
-                    </li>
-                </ul>
-
-            </nav>
+            <x-navbar/>
 
             <!-- Post Guidelines (Hidden Content) -->
             <div id="guidelines-popover-content" class="hidden-info">
@@ -136,7 +97,7 @@
                             <div class="form-group mb-2">
                                 <label for="titleInput">Title: </label>
                                 <input type="text" class="form-control" id="titleInput" placeholder="My Fun Study Session"
-                                    name="title" autocomplete="off" value="{{old('title')}}" required>
+                                    name="title" autocomplete="off" value="{{old('title')}}" >
                                 @error('title')
                                     <p class="mt-1 small text-danger">{{$message}}</p>
                                 @enderror
@@ -167,7 +128,7 @@
                                     <label for="inputState">Community:</label>
                                     <div class="form-group col-md-8" style="display: flex;">
                                         {{-- Select a Community --}}
-                                        <select id="inputState" class="form-select" name="community_id" required>
+                                        <select id="inputState" class="form-select" name="community_id">
                                             {{-- Directed from /create/post --}}
                                             @if (empty($selectedCmty))
                                                 <option selected disabled>Select a Community</option>
@@ -224,7 +185,7 @@
                             </div>
 
                             {{-- Author --}}
-                            <input type="hidden" id="author" name="author" value="john">
+                            {{-- <input type="hidden" name="user_id" value="{{Auth::id()}}"> --}}
                     
                             {{-- Submit Button --}}
                             <div class="post-btns">

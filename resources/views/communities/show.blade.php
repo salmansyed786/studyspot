@@ -1,6 +1,8 @@
 @php
     use App\Models\Community;
     use App\Models\User;
+    use App\Models\Post;
+    use App\Models\Membership;
 @endphp
 
 @include('components.modals', $cmty)
@@ -107,14 +109,34 @@
                                 {{$cmty['about']}}
                             </p>
 
+                            @auth
                             {{-- Leave/Join Btns --}}
-                            <button class="btn" style="background-color: #00274C; color:#FFCB05;">Join</button> {{--or Leave--}}
+                            {{-- Check if current user is a member of the community --}}
+                            @php
+                            Membership::where('user_id', Auth::user()->id)->where('community_id', $cmty->id)->exists() ? $isMember = true : $isMember = false;
+                            @endphp
+                            @if ($isMember)
+                            <form action="/c/{{ $cmty['community_name'] }}/leave" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn submit" style="background-color: #00274C; color:#FFCB05;" title="leave" onclick="return confirm('Are you sure you want to leave?')">Leave</button> 
+                            @else
+                            <form action="/c/{{ $cmty['community_name'] }}/join" method="POST">
+                                @csrf
+                                @method('POST')
+                                <button class="btn submit" style="background-color: #00274C; color:#FFCB05;" title="join">Join</button>
+                            @endif
+                            </form>
+                            @else
+                            <button type="button" class="btn" style="background-color: #00274C; color:#FFCB05;"
+                            data-bs-toggle="modal" data-bs-target="#signup-modal">Join</button>
+                            @endAuth
                         </div>
                         
                         <div class="card-footer text-muted">
                             @php
-                                $total_member_count = $cmty['members'];
-                                $total_post_count = $cmty['posts'];
+                                $total_member_count = Membership::where('community_id', $cmty->id)->count();
+                                $total_post_count = Post::where('community_id', $cmty->id)->count();
                                 
                                 if ($total_member_count == 1 && $total_post_count == 1) {
                                     echo $total_member_count.' Member • '.$total_post_count.' Post';
@@ -179,7 +201,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Footer -->
@@ -190,7 +211,7 @@
                     id="title-img">
                     <img src="{{ asset('images/study.png') }}" alt="" width="40">
                 </a>
-                <p class="col-md-4 mb-0" style="color: #00274C; text-align: center;">&copy; 2022 studySpot, Inc</p>
+                <p class="col-md-4 mb-0" style="color: #00274C; text-align: center;">&copy; 2023 studySpot, Inc</p>
             </footer>
         </div>
     </div>

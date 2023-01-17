@@ -117,7 +117,7 @@ class PostController extends Controller
         
         $post->delete();
 
-        return redirect('/c/' . $communityName)->with('message', 'post deleted successfully! 🗑️  ');
+        return redirect('/c/' . $communityName)->with('message', 'post deleted successfully! 🗑️');
     }
 
     // Manage Post

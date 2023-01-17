@@ -206,7 +206,7 @@
                             id="title-img">
                             <img src="{{ asset('images/study.png') }}" alt="" width="40">
                         </a>
-                        <p class="col-md-4 mb-0" style="color: #00274C; text-align: center;">&copy; 2022 studySpot, Inc</p>
+                        <p class="col-md-4 mb-0" style="color: #00274C; text-align: center;">&copy; 2023 studySpot, Inc</p>
                     </footer>
                 </div>
             </div>

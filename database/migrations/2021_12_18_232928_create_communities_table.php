@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string(column: 'community_name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->longText(column: 'about');
-            $table->integer(column: 'members')->default(0);
+            $table->integer(column: 'members')->default(1);
             $table->integer(column: 'posts')->default(0);
             $table->string(column: 'image')->nullable();
             $table->timestamps();

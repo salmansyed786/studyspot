@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Community;
+use App\Models\Membership;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 
@@ -46,8 +47,12 @@ class CommunityController extends Controller
         }
 
         Community::create($attributes);
+        Membership::create([
+            'user_id' => $attributes['user_id'],
+            'community_id' => Community::where('community_name', $attributes['community_name'])->first()->id
+        ]);
 
-        return redirect('/c/' . $attributes['community_name'])->with('message', 'community created successfully! 🎉  ');
+        return redirect('/c/' . $attributes['community_name'])->with('message', 'community created successfully! 🎉');
     }
 
     // Update a community
@@ -81,6 +86,10 @@ class CommunityController extends Controller
         $search = $request->get('community');
         $community = Community::where('community_name', 'like', '%' . $search . '%')->first();
 
+        if (!$community) {
+            abort(404);
+        }
+
         return $this->show($community->community_name);
-    }
+    }    
 }

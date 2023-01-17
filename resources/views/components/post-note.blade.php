@@ -1,4 +1,7 @@
 @props(['post', 'community', 'username'])
+@php
+    use App\Models\Like;
+@endphp
 
 {{-- Sticky Post --}}
 <li class="note">
@@ -16,17 +19,35 @@
             <small>{{ $username }} • {{ $post->created_at }}</small>
         </div>
         <div class="interactions">
-            <button tabindex="-1"
-                class="bi bi-hand-thumbs-up interaction-btn like like_{{$post->id}}"
+            {{-- check if post is liked or disliked --}}
+            @php
+            $likeBtn = 'bi-hand-thumbs-up';
+            $dislikeBtn = 'bi-hand-thumbs-down';
+            $liked = null;
+            @endphp
+            
+            @auth
+            @php
+            if (Like::where('post_id', $post->id)->where('user_id', Auth::user()->id)->where('isLike', true)->exists()) {
+                $liked = true;
+                $likeBtn = 'bi-hand-thumbs-up-fill';
+                $dislikeBtn = 'bi-hand-thumbs-down';
+            } elseif (Like::where('post_id', $post->id)->where('user_id', Auth::user()->id)->where('isLike', false)->exists()) {
+                $liked = false;
+                $likeBtn = 'bi-hand-thumbs-up';
+                $dislikeBtn = 'bi-hand-thumbs-down-fill';
+            }
+            @endphp
+            @endauth
+            <button tabindex="-1" onclick="location.href='/{{$post->id}}/like'"
+                class="bi {{$likeBtn}} interaction-btn like"
                 id="like_{{$post->id}}">
-                <span class="like-count likes_{{$post->id}}"
-                    id="likes_{{$post->id}}">{{$post->likes}}</span>
+                <span class="like-count">{{$post->likes}}</span>
             </button>
-            <button tabindex="-1"
-                class="bi bi-hand-thumbs-down-fill selected interaction-btn unlike unlike_{{$post->id}}"
+            <button tabindex="-1" onclick="location.href='/{{$post->id}}/dislike'"
+                class="bi {{$dislikeBtn}} interaction-btn unlike"
                 id="unlike_{{$post->id}}">
-                <span class="dislike-count unlikes_{{$post->id}}"
-                    id="unlikes_{{$post->id}}">{{$post->dislikes}}</span>
+                <span class="dislike-count">{{$post->dislikes}}</span>
             </button>
             <button tabindex="-1" class="bi bi-chat-left-text interaction-btn"
                 data-id='{{$post->id}}' data-bs-toggle="modal"

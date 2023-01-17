@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MembershipController;
 
 // Display All Communities
 Route::get('/', [CommunityController::class, 'index']);
@@ -22,6 +24,12 @@ Route::put('/c/{community}', [CommunityController::class, 'updateCmty'])->middle
 
 // Delete Community
 Route::delete('/c/{community}', [CommunityController::class, 'destroyCmty'])->middleware('auth');
+
+// Leave Community
+Route::delete('/c/{community}/leave', [MembershipController::class, 'leaveCmty'])->middleware('auth');
+
+// Join Community
+Route::post('/c/{community}/join', [MembershipController::class, 'joinCmty'])->middleware('auth');
 
 /* POST CRUD */
 // Create Post
@@ -42,6 +50,12 @@ Route::delete('/c/{community}/{post}', [PostController::class, 'destroyPost'])->
 
 // Manage Posts
 Route::get('/manage/posts', [PostController::class, 'managePosts'])->middleware('auth');
+
+// Like Post
+Route::get('/{post}/like', [LikeController::class, 'likePost'])->middleware('auth');
+
+// Dislike Post
+Route::get('/{post}/dislike', [LikeController::class, 'dislikePost'])->middleware('auth');
 
 /* USER CRUD */
 // Opens Signup Modal

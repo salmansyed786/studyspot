@@ -121,19 +121,12 @@
                                 quasi non exercitationem necessitatibus, porro sed illo temporibus.
                             </p>
 
-                            {{-- Leave/Join Btns --}}
-                            <button class="btn" style="background-color: #00274C; color:#FFCB05;">Join</button> {{--or Leave--}}
                         </div>
                         
                         <div class="card-footer text-muted">
                             @php
-                                $total_member_count = 0;
-                                $total_post_count = 0;
-
-                                foreach ($communities as $community) {
-                                    $total_member_count +=$community->members;
-                                    $total_post_count += $community->posts;
-                                }
+                                $total_member_count = User::count();
+                                $total_post_count = Post::count();
                                 
                                 if ($total_member_count == 1 && $total_post_count == 1) {
                                     echo $total_member_count.' Member • '.$total_post_count.' Post';
@@ -211,7 +204,7 @@
                     id="title-img">
                     <img src="{{ asset('images/study.png') }}" alt="" width="40">
                 </a>
-                <p class="col-md-4 mb-0" style="color: #00274C; text-align: center;">&copy; 2022 studySpot, Inc</p>
+                <p class="col-md-4 mb-0" style="color: #00274C; text-align: center;">&copy; 2023 studySpot, Inc</p>
             </footer>
         </div>
     </div>

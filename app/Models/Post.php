@@ -18,9 +18,12 @@ class Post extends Model
         }
 
         if ($filters['search'] ?? false) {
+            $community = Community::where('community_name', 'like', '%' . request('search') . '%')->first();
+
             $query->where('title', 'like', '%' . request('search')  . '%')
                 ->orWhere('description', 'like', '%' . request('search') . '%')
                 ->orWhere('tags', 'like', '%' . request('search') . '%')
+                ->orWhere('community_id', 'like', '%' . $community->id . '%')
                 ->orWhere('user_id', 'like', '%' . request('search') . '%');
         }
     }

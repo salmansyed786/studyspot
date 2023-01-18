@@ -9,94 +9,88 @@
 
 $(document).ready(function () {
   // Like System
-  // $(".like, .unlike").click(function () {
-  //     var id = this.id;
-  //     var split_id = id.split("_");
-  //     var text = split_id[0];
-  //     var postid = split_id[1];
-  //     var type = 0;
-  //     var selected = 0;
-  //     if (text == "like") {
-  //         type = 1;
-  //         // check if already selected
-  //         if (this.matches(".selected")) {
-  //             selected = 1;
-  //         }
-  //     } else {
-  //         type = 0;
-  //         // check if already selected
-  //         if (this.matches(".selected")) {
-  //             selected = 1;
-  //         }
-  //     }
-  //     $.ajax({
-  //         url: "../views/components/likeunlike.php",
-  //         type: "post",
-  //         data: {
-  //             postid: postid,
-  //             type: type,
-  //             selected: selected,
-  //         },
-  //         dataType: "json",
-  //         success: function (data) {
-  //             var likes = data["likes"];
-  //             var unlikes = data["unlikes"];
-
-  //             $(".likes_" + postid).each(function () {
-  //                 $(this).text(likes);
-  //             });
-
-  //             $(".unlikes_" + postid).each(function () {
-  //                 $(this).text(unlikes);
-  //             });
-
-  //             if (type == 1) {
-  //                 if (selected == 1) {
-  //                     $(".like_" + postid).each(function () {
-  //                         $(this)
-  //                             .removeClass("bi-hand-thumbs-up-fill selected")
-  //                             .addClass("bi-hand-thumbs-up");
-  //                     });
-  //                 } else {
-  //                     $(".like_" + postid).each(function () {
-  //                         $(this)
-  //                             .removeClass("bi-hand-thumbs-up")
-  //                             .addClass("bi-hand-thumbs-up-fill selected");
-  //                     });
-
-  //                     $(".unlike_" + postid).each(function () {
-  //                         $(this)
-  //                             .removeClass(
-  //                                 "bi-hand-thumbs-down-fill selected"
-  //                             )
-  //                             .addClass("bi-hand-thumbs-down");
-  //                     });
-  //                 }
-  //             }
-  //             if (type == 0) {
-  //                 if (selected == 1) {
-  //                     $(".unlike_" + postid).each(function () {
-  //                         $(this)
-  //                             .removeClass("bi-hand-downs-fill selected")
-  //                             .addClass("bi-hand-thumbs-down");
-  //                     });
-  //                 } else {
-  //                     $(".unlike_" + postid).each(function () {
-  //                         $(this)
-  //                             .removeClass("bi-hand-thumbs-down")
-  //                             .addClass("bi-hand-thumbs-down-fill selected");
-  //                     });
-
-  //                     $(".like_" + postid).each(function () {
-  //                         $(this)
-  //                             .removeClass("bi-hand-thumbs-up-fill selected")
-  //                             .addClass("bi-hand-thumbs-up");
-  //                     });
-  //                 }
-  //             }
-  //         },
-  //     });
-  // });
+  $(".like, .dislike").click(function () {
+    var post = $(this).data("post");
+    // remove all &quot; from post
+    post = post.replace(/&quot;/g, '"');
+    // convert string to object
+    post = JSON.parse(post);
+    if ($(this).hasClass("like")) {
+      var url = "/" + post["id"] + "/like";
+    } else {
+      var url = "/" + post["id"] + "/dislike";
+    }
+    $.ajaxSetup({
+      headers: {
+        csrftoken: "{{ csrf_token() }}"
+      }
+    });
+    $.ajax({
+      headers: {
+        csrftoken: "{{ csrf_token() }}"
+      },
+      url: url,
+      type: "GET",
+      data: {
+        post_id: post["id"]
+      },
+      dataType: "json",
+      success: function success(response) {
+        // Update like and dislike buttons
+        if (response["like"] == "like added") {
+          if (response["dislike"] == "dislike removed") {
+            // find dislike button and remove class
+            $("#dislikeBtn-" + response["post-id"] + "-small, #dislikeBtn-" + response["post-id"] + "-enlarge").removeClass("bi-hand-thumbs-down-fill").addClass("bi-hand-thumbs-down");
+            // get the number of dislikes and subtract 1
+            var dislikes = $("#dislikeBtn-" + response["post-id"] + "-small").find("span").text();
+            dislikes = parseInt(dislikes) - 1;
+            // update the number of dislikes
+            $("#dislikeBtn-" + response["post-id"] + "-small, #dislikeBtn-" + response["post-id"] + "-enlarge").find("span").text(dislikes);
+          }
+          // find like button and add class
+          $("#likeBtn-" + response["post-id"] + "-small, #likeBtn-" + response["post-id"] + "-enlarge").removeClass("bi-hand-thumbs-up").addClass("bi-hand-thumbs-up-fill");
+          // get the number of likes and add 1
+          var likes = $("#likeBtn-" + response["post-id"] + "-small").find("span").text();
+          likes = parseInt(likes) + 1;
+          // update the number of likes
+          $("#likeBtn-" + response["post-id"] + "-small, #likeBtn-" + response["post-id"] + "-enlarge").find("span").text(likes);
+        } else if (response["dislike"] == "dislike added") {
+          if (response["like"] == "like removed") {
+            // find like button and remove class
+            $("#likeBtn-" + response["post-id"] + "-small, #likeBtn-" + response["post-id"] + "-enlarge").removeClass("bi-hand-thumbs-up-fill").addClass("bi-hand-thumbs-up");
+            // get the number of likes and subtract 1
+            var likes = $("#likeBtn-" + response["post-id"] + "-small").find("span").text();
+            likes = parseInt(likes) - 1;
+            // update the number of likes
+            $("#likeBtn-" + response["post-id"] + "-small, #likeBtn-" + response["post-id"] + "-enlarge").find("span").text(likes);
+          }
+          // find dislike button and add class
+          $("#dislikeBtn-" + response["post-id"] + "-small, #dislikeBtn-" + response["post-id"] + "-enlarge").removeClass("bi-hand-thumbs-down").addClass("bi-hand-thumbs-down-fill");
+          // get the number of dislikes and add 1
+          var dislikes = $("#dislikeBtn-" + response["post-id"] + "-small").find("span").text();
+          dislikes = parseInt(dislikes) + 1;
+          // update the number of dislikes
+          $("#dislikeBtn-" + response["post-id"] + "-small, #dislikeBtn-" + response["post-id"] + "-enlarge").find("span").text(dislikes);
+        } else if (response["dislike"] == "dislike removed") {
+          // find dislike button and remove class
+          $("#dislikeBtn-" + response["post-id"] + "-small, #dislikeBtn-" + response["post-id"] + "-enlarge").removeClass("bi-hand-thumbs-down-fill").addClass("bi-hand-thumbs-down");
+          // get the number of dislikes and subtract 1
+          var dislikes = $("#dislikeBtn-" + response["post-id"] + "-small").find("span").text();
+          dislikes = parseInt(dislikes) - 1;
+          // update the number of dislikes
+          $("#dislikeBtn-" + response["post-id"] + "-small, #dislikeBtn-" + response["post-id"] + "-enlarge").find("span").text(dislikes);
+        } else {
+          // find like button and remove class
+          $("#likeBtn-" + response["post-id"] + "-small, #likeBtn-" + response["post-id"] + "-enlarge").removeClass("bi-hand-thumbs-up-fill").addClass("bi-hand-thumbs-up");
+          // get the number of likes and subtract 1
+          var likes = $("#likeBtn-" + response["post-id"] + "-small").find("span").text();
+          likes = parseInt(likes) - 1;
+          // update the number of likes
+          $("#likeBtn-" + response["post-id"] + "-small, #likeBtn-" + response["post-id"] + "-enlarge").find("span").text(likes);
+        }
+      }
+    });
+  });
 
   // Popovers
   $("#guidelines-popover").popover({

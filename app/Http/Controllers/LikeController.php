@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
     // Like a post
-    public function likePost(Post $post) {
+    public function likePost(Request $request, $post_id) {
+        // Get the post from the request where id is the post id
+        $post = Post::where('id', $post_id)->first();
+        
         // Check if user has already liked the post
         $like = Like::where('user_id', auth()->id())
             ->where('post_id', $post->id)
@@ -20,15 +23,15 @@ class LikeController extends Controller
             ->where('post_id', $post->id)
             ->where('isLike', false)
             ->first();
-
-        // find the post
-        $post = Post::find($post->id);
-        
+                
         // If user has already liked the post, then unlike it
         if ($like) {
             $like->delete();
-            // remove the like from post
+            // Remove the like from post
             $post->likes--;
+            $post->save();
+            // send response to ajax like was removed
+            return response()->json(['like' => 'like removed', "post-id" => $post->id]);
         } else if ($dislike) {
             $dislike->delete();
             Like::create([
@@ -36,26 +39,31 @@ class LikeController extends Controller
                 'post_id' => $post->id,
                 'isLike' => true
             ]);
-            // remove the dislike from post and add a like to post
+            // Remove the dislike from post and add a like to post
             $post->likes++;
             $post->dislikes--;
+            $post->save();
+            // send response to ajax like was added and dislike was removed
+            return response()->json(['like' => 'like added', 'dislike' => 'dislike removed', "post-id" => $post->id]);
         } else {
             Like::create([
                 'user_id' => auth()->id(),
                 'post_id' => $post->id,
                 'isLike' => true
             ]);
-            // add a like to post
+            // Add a like to post
             $post->likes++;
+            $post->save();
+            // send response to ajax like was added
+            return response()->json(['like' => 'like added', "post-id" => $post->id]);
         }
-        
-        $post->save();
-
-        return back();
     }
 
     // Dislike a post
-    public function dislikePost(Post $post) {
+    public function dislikePost(Request $request, $post_id) {
+        // Get the post from the request
+        $post = Post::where('id', $post_id)->first();
+        
         // Check if user has already liked the post
         $dislike = Like::where('user_id', auth()->id())
             ->where('post_id', $post->id)
@@ -66,15 +74,16 @@ class LikeController extends Controller
         ->where('post_id', $post->id)
         ->where('isLike', true)
         ->first();
-
-        // find the post
-        $post = Post::find($post->id);
         
         // If user has already liked the post, then unlike it
         if ($dislike) {
             $dislike->delete();
-            // remove the dislike from post
+            // Remove the dislike from post
             $post->dislikes--;
+            $post->save();
+            // send response to ajax dislike was removed
+            return response()->json(['dislike' => 'dislike removed', "post-id" => $post->id]);
+
         } else if ($like) {
             $like->delete();
             Like::create([
@@ -82,9 +91,12 @@ class LikeController extends Controller
                 'post_id' => $post->id,
                 'isLike' => false
             ]);
-            // remove the like from post and add a dislike to post
+            // Remove the like from post and add a dislike to post
             $post->likes--;
             $post->dislikes++;
+            $post->save();
+            // send response to ajax dislike was added and like was removed
+            return response()->json(['dislike' => 'dislike added', 'like' => 'like removed', "post-id" => $post->id]);
         }
         else {
             Like::create([
@@ -92,12 +104,11 @@ class LikeController extends Controller
                 'post_id' => $post->id,
                 'isLike' => false
             ]);
-            // add a dislike to post
+            // Add a dislike to post
             $post->dislikes++;
+            $post->save();
+            // send response to ajax dislike was added
+            return response()->json(['dislike' => 'dislike added', "post-id" => $post->id]);
         }
-
-        $post->save();
-
-        return back();
     }
 }

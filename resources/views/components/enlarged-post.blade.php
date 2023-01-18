@@ -1,4 +1,4 @@
-@props(['post', 'community', 'username'])
+@props(['post', 'community', 'username', 'liketype', 'disliketype'])
 
 <div class="modal-content" style="width: 100%; height: 400px; padding: 15px; border-radius: 5px; background-color: {{ $post['color'] }}; color: {{ $post['textColor'] }}">
     <div class="modal-header border-0">
@@ -26,11 +26,11 @@
             
             <p style="font-size: 12px;">{{ $community['community_name'] }} • {{ $username }} • {{ $post['created_at'] }}</p>
             <div class="interactions">
-                <button tabindex="-1" class="bi bi-hand-thumbs-up interaction-btn">
-                    <span class="like-count">{{ $post['likes'] }}</span>
+                <button tabindex="-1" class="bi {{$liketype}} interaction-btn like" data-post="{{$post}}" id="likeBtn-{{$post->id}}-enlarge">
+                    <span class="like-count">{{$post->likes}}</span>
                 </button>
-                <button tabindex="-1" class="bi bi-hand-thumbs-down interaction-btn">
-                        <span class="dislike-count">{{ $post['dislikes'] }}</span>
+                <button tabindex="-1" class="bi {{$disliketype}} interaction-btn dislike" data-post="{{$post}}" id="dislikeBtn-{{$post->id}}-enlarge">
+                    <span class="dislike-count">{{$post->dislikes}}</span>
                 </button>
                 <button tabindex="-1" class="bi bi-chat-left-text interaction-btn">
                     <span class="comment-count">{{$post['comments'] }}</span>

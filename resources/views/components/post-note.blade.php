@@ -21,8 +21,8 @@
         <div class="interactions">
             {{-- check if post is liked or disliked --}}
             @php
-            $likeBtn = 'bi-hand-thumbs-up';
-            $dislikeBtn = 'bi-hand-thumbs-down';
+            $likeBtnType = 'bi-hand-thumbs-up';
+            $dislikeBtnType = 'bi-hand-thumbs-down';
             $liked = null;
             @endphp
             
@@ -30,23 +30,19 @@
             @php
             if (Like::where('post_id', $post->id)->where('user_id', Auth::user()->id)->where('isLike', true)->exists()) {
                 $liked = true;
-                $likeBtn = 'bi-hand-thumbs-up-fill';
-                $dislikeBtn = 'bi-hand-thumbs-down';
+                $likeBtnType = 'bi-hand-thumbs-up-fill';
+                $dislikeBtnType = 'bi-hand-thumbs-down';
             } elseif (Like::where('post_id', $post->id)->where('user_id', Auth::user()->id)->where('isLike', false)->exists()) {
                 $liked = false;
-                $likeBtn = 'bi-hand-thumbs-up';
-                $dislikeBtn = 'bi-hand-thumbs-down-fill';
+                $likeBtnType = 'bi-hand-thumbs-up';
+                $dislikeBtnType = 'bi-hand-thumbs-down-fill';
             }
             @endphp
             @endauth
-            <button tabindex="-1" onclick="location.href='/{{$post->id}}/like'"
-                class="bi {{$likeBtn}} interaction-btn like"
-                id="like_{{$post->id}}">
+            <button tabindex="-1" class="bi {{$likeBtnType}} interaction-btn like" data-post="{{$post}}" id="likeBtn-{{$post->id}}-small">
                 <span class="like-count">{{$post->likes}}</span>
             </button>
-            <button tabindex="-1" onclick="location.href='/{{$post->id}}/dislike'"
-                class="bi {{$dislikeBtn}} interaction-btn unlike"
-                id="unlike_{{$post->id}}">
+            <button tabindex="-1" class="bi {{$dislikeBtnType}} interaction-btn dislike" data-post="{{$post}}" id="dislikeBtn-{{$post->id}}-small">
                 <span class="dislike-count">{{$post->dislikes}}</span>
             </button>
             <button tabindex="-1" class="bi bi-chat-left-text interaction-btn"
@@ -61,6 +57,6 @@
 <!-- Enlarged Post -->
 <div class="modal fade" id="noteModal-{{$post->id}}" tabindex="-1" aria-labelledby="noteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered fetched-data" style="width: 450px; height: 400px;" id="enlarged-data">
-        <x-enlarged-post :post="$post" :community="$community" :username="$username" />
+        <x-enlarged-post :post="$post" :community="$community" :username="$username" :liketype="$likeBtnType" :disliketype="$dislikeBtnType" />
     </div>
 </div>

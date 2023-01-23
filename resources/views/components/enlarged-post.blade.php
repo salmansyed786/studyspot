@@ -24,7 +24,7 @@
                 @endif
             </div>
             
-            <p style="font-size: 12px;">{{ $community['community_name'] }} • {{ $username }} • {{ $post['created_at'] }}</p>
+            <p style="font-size: 12px;">{{ $community['community_name'] }} • {{ $username }} • {{ $post->created_at->diffForHumans() }}</p>
             <div class="interactions">
                 <button tabindex="-1" class="bi {{$liketype}} interaction-btn like" data-post="{{$post}}" id="likeBtn-{{$post->id}}-enlarge">
                     <span class="like-count">{{$post->likes}}</span>

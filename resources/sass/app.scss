@@ -5,7 +5,7 @@
 
 body {
     background-color: #cad2da;
-    font-family: Roboto, "Helvetica Neue", Arial, sans-serif,
+    font-family: 'Open Sans', sans-serif, Roboto, "Helvetica Neue", Arial, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -74,13 +74,6 @@ body {
 }
 
 .hoverme {
-    width: 240px;
-    margin: 150px auto 0;
-    text-align: center;
-    padding: 10px 0;
-    cursor: pointer;
-    position: relative;
-
     span {
         color: #333;
         font-size: .9em;
@@ -89,6 +82,7 @@ body {
     i {
         position: absolute;
         display: block;
+        z-index: 100;
         left: 50%;
         top: 0;
         width: 3px;
@@ -105,12 +99,8 @@ body {
 }
 
 #create-cmt-btn:hover {
-    background-color: var(--mich-maize);
-    color: var(--mich-blue);
-}
-
-#create-cmt-btn:active {
-    launchConfetti();
+    background-color: var(--mich-maize) !important;
+    color: var(--mich-blue) !important;
 }
 
 .nav-item .nav-link {

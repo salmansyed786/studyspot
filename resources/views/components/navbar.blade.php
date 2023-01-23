@@ -68,7 +68,7 @@
             id="dropdownUser3" data-bs-toggle="dropdown">
             <img src={{ auth()->user()->image ? asset('/storage/' . auth()->user()->image) : asset('/images/no-image.png') }} alt="mdo" width="24" height="24" class="rounded-circle">
         </a>
-        <ul class="dropdown-menu text-small shadow settings-dropdown" aria-labelledby="dropdownUser3">
+        <ul class="dropdown-menu text-small shadow settings-dropdown" style="z-index: 5;" aria-labelledby="dropdownUser3">
             <b style="margin-left: 15px;">Welcome {{auth()->user()->username}}!</b>
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>

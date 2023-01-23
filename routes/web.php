@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommunityController;
-use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MembershipController;
 
 // Display All Communities
@@ -56,6 +57,12 @@ Route::get('/{post}/like', [LikeController::class, 'likePost'])->middleware('aut
 
 // Dislike Post
 Route::get('/{post}/dislike', [LikeController::class, 'dislikePost'])->middleware('auth');
+
+// Add Comment
+Route::post('/{post}/comment', [CommentController::class, 'storeComment'])->middleware('auth');
+
+// View Comments
+Route::get('/{post}/comments', [CommentController::class, 'viewComments']);
 
 /* USER CRUD */
 // Opens Signup Modal

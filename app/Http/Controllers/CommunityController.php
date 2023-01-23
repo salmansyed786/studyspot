@@ -38,7 +38,6 @@ class CommunityController extends Controller
         $attributes = request()->validate([
             'community_name' => 'required',
             'about' => 'required',
-            'image' => 'required',
             'user_id' => 'required'
         ]);
 

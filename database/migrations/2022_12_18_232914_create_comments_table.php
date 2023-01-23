@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId(column: 'user_id')->nullable()->constrained(table: 'users')->cascadeOnDelete();
             $table->foreignId(column: 'post_id')->nullable()->constrained(table: 'posts')->cascadeOnDelete();
             $table->longText('description');
-            $table->timestamps();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime("updated_at")->useCurrent();
         });
     }
 

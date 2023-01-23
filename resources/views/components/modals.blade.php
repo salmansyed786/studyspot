@@ -136,8 +136,37 @@
     </div>
 
     <!-- Create Comment Modal -->
-    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
-        <div class="modal-dialog fetch-comments">
+    <div class="modal fade comments-modal" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog comments-dialog" style="overflow: hidden; overflow-y: scroll; overflow-y: initial !important;">
+            <div class="modal-content" style="padding: 2px;">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="commentModalLabel">
+                        <div class="container" style="display: flex;">
+                            <h4 style="margin: 0;">Comments&nbsp;</h4>
+                            <h4 style="margin: 0; font-weight: 400;" id="num_of_comments"></h4>
+                        </div>
+                    </h1>
+                    <button tabindex="-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body comments-body" style="overflow-y: auto;">
+                    <form action="" method="POST" id="create-cmt" class="create-comment-form" style="padding: 10px; margin: 0;">
+                        @csrf
+                        <div class="mb-1" style="display: flex; align-items: center; justify-content: center;">
+                            <label for="commentBody" class="form-label"></label>
+                            @auth
+                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                            @endauth
+                            <input type="hidden" name="post_id" id="post_id" value="">
+                            <input type="text" name="description" class="form-control" id="commentBody" aria-describedby="emailHelp"
+                                placeholder="add a comment" autocomplete="off">
+                            <button type="submit" name="create-cmt-submit" class="btn btn-primary hoverme" id="create-cmt-btn">Post</button>
+                        </div>
+                    </form>
+            
+                    <ul class="list-group" id="all-comments">
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 

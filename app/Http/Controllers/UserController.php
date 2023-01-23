@@ -26,11 +26,14 @@ class UserController extends Controller
             'username' => ['required', 'min: 3', 'max: 255', 'unique:users,username'],
             'email' => ['required', 'email', 'max: 255', 'unique:users,email'],
             'password' => 'required|confirmed|min: 7|max: 50',
-            'image' => 'required|image',
         ], $messages);
 
-        // Store the image
-        $validatedData['image'] = request()->file('image')->store('images', 'public');
+        // Check if the image is present
+        if (request()->file('image') != null) {
+            // Store the image
+            $validatedData['image'] = request()->file('image')->store('images', 'public');
+        }
+
 
         // Hash the password
         $validatedData['password'] = bcrypt($validatedData['password']);

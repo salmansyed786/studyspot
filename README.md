@@ -52,3 +52,7 @@ Upload the files to your document root, Valet folder or run
 php artisan serve
 ```
 
+## Special Thanks
+- Brad Traversy for his awesome Laravel course on [YouTube] (https://www.youtube.com/watch?v=MYyJ4PuL4pY).
+- Envato Tuts+ for their cool sticky note [design] (https://codepen.io/tutsplus/pen/qBqWrqx).
+- [Prosymbols] (https://www.flaticon.com/authors/prosymbols) for the icons

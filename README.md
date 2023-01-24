@@ -21,7 +21,7 @@ These are the features I wish to add:
 - Recommend other communities
 - Make the site more responsive
 
-## Usage
+## Usage 🧑‍💻
 
 ### Database Setup
 This app uses MySQL. To use something different, open up config/Database.php and change the default driver.
@@ -52,3 +52,7 @@ Upload the files to your document root, Valet folder or run
 php artisan serve
 ```
 
+## Special Thanks ❤️
+- Brad Traversy for his awesome Laravel course on [YouTube](https://www.youtube.com/watch?v=MYyJ4PuL4pY).
+- Envato Tuts+ for their cool sticky note [design](https://codepen.io/tutsplus/pen/qBqWrqx).
+- [Prosymbols](https://www.flaticon.com/authors/prosymbols) for the icons

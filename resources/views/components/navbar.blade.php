@@ -53,9 +53,9 @@
         @endauth
         {{-- Search --}}
         <li class="nav-item">
-            <!-- Search btn trigger modal -->
+            <!-- Search btn trigger modal data-bs-target="#advancedsearch-modal"-->
             <button type="button" class="btn navbar-btn create-btn material-symbols-outlined"
-                data-bs-toggle="modal" data-bs-target="#advancedsearch-modal" data-toggle="tooltip"
+                data-bs-toggle="modal" data-toggle="tooltip"
                 data-placement="right" title="Search studySpot">
                 search
             </button>

@@ -67,10 +67,10 @@ Route::get('/{post}/comments', [CommentController::class, 'viewComments']);
 /* USER CRUD */
 // Opens Signup Modal
 Route::get('/register', [UserController::class, 'register'])->name('register')->middleware('guest');
-Route::get('/signup', [UserController::class, 'register'])->name('register')->middleware('guest');
+Route::get('/signup', [UserController::class, 'register'])->name('register.signup')->middleware('guest');
 
 // Open Login Modal
-Route::get('/login', [UserController::class, 'register'])->name('register')->middleware('guest');
+Route::get('/login', [UserController::class, 'register'])->name('register.login')->middleware('guest');
 
 // User Registeration
 Route::post('/register', [UserController::class, 'storeUser']);

@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\Community;
 use App\Models\Membership;
 use Illuminate\Http\Request;
-use Laravel\Ui\Presets\React;
 
 class CommunityController extends Controller
 {
@@ -26,7 +25,7 @@ class CommunityController extends Controller
             abort(404);
         }
     
-        return view('Communities.show', [
+        return view('communities.show', [
             'communities' => Community::latest()->get(),
             'cmty' => $community,
             'posts' => Post::where('community_id', '=', $community->id)->filter(request(['tag', 'search']))->latest()->paginate(9)

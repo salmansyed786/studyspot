@@ -95,7 +95,7 @@ class UserController extends Controller
             $signup = true;
         }
 
-        return view('Communities.index', [
+        return view('communities.index', [
             'communities' => Community::latest()->get(),
             'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(9),
             'login' => $login,

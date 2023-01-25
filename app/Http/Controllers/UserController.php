@@ -45,7 +45,7 @@ class UserController extends Controller
         auth()->login($user);
 
         // Redirect to the home page with a success message
-        return redirect('/')->with('message', 'User created & logged in successfully! 🧙‍♂️');
+        return redirect()->with('message', 'User created & logged in successfully! 🧙‍♂️');
     }
 
     // Login a user
@@ -56,7 +56,7 @@ class UserController extends Controller
         ];
 
         if (empty($request->username1) || empty($request->password1)) {
-            return redirect('/')->withErrors(['username1' => 'Invalid Credentials! 🧟‍♂️'])->onlyInput('username1');
+            return redirect()->withErrors(['username1' => 'Invalid Credentials! 🧟‍♂️'])->onlyInput('username1');
         }
 
         // Temp Solution
@@ -70,12 +70,12 @@ class UserController extends Controller
 
         // Check if the user exists
         if (!auth()->attempt($validatedData)) {
-            return redirect('/')->withErrors(['username1' => 'Invalid Credentials! 🧟‍♂️'])->onlyInput('username1');
+            return redirect()->withErrors(['username1' => 'Invalid Credentials! 🧟‍♂️'])->onlyInput('username1');
         }
 
         // Redirect to the home page with a success message
         $request->session()->regenerate();
-        return redirect('/')->with('message', 'User logged in successfully! 🧙‍♂️');
+        return redirect()->with('message', 'User logged in successfully! 🧙‍♂️');
     }
 
     // Register Modal open on homepage
@@ -110,6 +110,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('message', 'User logged out successfully! 🧟');
+        return redirect()->with('message', 'User logged out successfully! 🧟');
     }
 }

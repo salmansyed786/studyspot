@@ -72,7 +72,7 @@ class PostController extends Controller
     public function updatePost(Request $request, $communityName, Post $post) {
         // Check if the user is authorized to delete the post
         if (auth()->user()->id !== $post->user_id) {
-            return redirect()->with('message', 'You are not authorized to update this post! 🚫');
+            return redirect()->to('/')->with('message', 'You are not authorized to update this post! 🚫');
         }
 
         $community_id = $request->input('community_id');

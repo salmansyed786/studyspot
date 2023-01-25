@@ -76,7 +76,7 @@ class CommunityController extends Controller
         $community = Community::where('community_name', $communityName)->first();
         $community->delete();
 
-        return redirect()->with('message', 'community deleted successfully! 🗑️  ');
+        return redirect()->to('/')->with('message', 'community deleted successfully! 🗑️  ');
     }
 
     // search for a community

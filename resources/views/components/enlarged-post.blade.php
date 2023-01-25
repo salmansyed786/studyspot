@@ -20,7 +20,7 @@
             <div id="descrip">
                 <h6>{{$post['description'] }}</h6>
                 @if ($post['image'] != null)
-                    <img src="/storage/{{ $post['image'] }}" class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
+                    <img src="{{ asset('/storage/' . $post['image']) }}" class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
                 @endif
             </div>
             

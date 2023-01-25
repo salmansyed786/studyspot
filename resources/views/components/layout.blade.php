@@ -26,8 +26,8 @@
         <script src="//unpkg.com/alpinejs" defer></script>
 
         <!-- Custom Styling and Scripts -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="{{ asset('/js/app.js') }}"></script>
+        <link href="../../css/app.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../../js/app.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">

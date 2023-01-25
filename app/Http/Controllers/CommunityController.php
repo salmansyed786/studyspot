@@ -12,7 +12,7 @@ class CommunityController extends Controller
 {
     // Show all community posts (HOME PAGE)
     public function index() {
-        return view('resources/views/communities/index.blade.php', [
+        return view('Communities.index', [
             'communities' => Community::latest()->get(),
             'posts' => Post::latest()->filter(request(['tag', 'search']))->paginate(9)
         ]);

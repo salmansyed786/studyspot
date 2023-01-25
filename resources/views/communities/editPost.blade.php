@@ -156,7 +156,7 @@
                                 <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*" value="{{ $post->image }}">
                                 <label class="custom-file-label" for="customFile">Add an image</label>
                             </div>
-                            <img src= {{ $post->image ? asset('/storage/' . $post->image) : asset('/images/no-image.png') }} class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
+                            <img src= {{ $post->image ? asset('/storage/' . $post->image) : asset('../../public/images/no-image.png') }} class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
 
 
                             {{-- Color --}}

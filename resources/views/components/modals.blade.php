@@ -215,7 +215,7 @@
                             <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*" value="{{ $cmty->image }}">
                             <label class="custom-file-label" for="customFile">Add an image</label>
                         </div>
-                        <img src= {{ $cmty->image ? asset('/storage/' . $cmty->image) : asset('/images/no-image.png') }} class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
+                        <img src= {{ $cmty->image ? asset('/storage/' . $cmty->image) : asset('../../public/images/no-image.png') }} class="img-fluid" alt="no img" style="width: 125px; height: 100px;">
                     </div>
 
                     <div class="modal-footer">

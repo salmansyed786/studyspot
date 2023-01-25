@@ -66,7 +66,7 @@
     <div class="dropdown border-top user-settings">
         <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
             id="dropdownUser3" data-bs-toggle="dropdown">
-            <img src={{ auth()->user()->image ? asset('/storage/' . auth()->user()->image) : asset('/images/no-image.png') }} alt="mdo" width="24" height="24" class="rounded-circle">
+            <img src={{ auth()->user()->image ? asset('/storage/' . auth()->user()->image) : asset('../../public/images/no-image.png') }} alt="mdo" width="24" height="24" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small shadow settings-dropdown" style="z-index: 5;" aria-labelledby="dropdownUser3">
             <b style="margin-left: 15px;">Welcome {{auth()->user()->username}}!</b>

@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Str;
 
-$DATABASE_URL = parse_url('CLEARDB_DATABASE_URL');
+$DATABASE_URL = parse_url(getenv("CLEARDB_DATABASE_URL"));
+//mysql://id20189120_ash:Shampoo5=Feline=Darkness@us-cdbr-east-06.cleardb.net/id20189120_studyspot?reconnect=true
 
 return [
 
@@ -50,7 +51,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => $DATABASE_URL["host"] ?? env('DB_HOST', 'localhost'),
             'port' => $DATABASE_URL["port"] ?? env('DB_PORT', '3306'),
-            'database' => ltrim($DATABASE_URL["path"]) ?? env('DB_DATABASE', 'id20189120_studyspot'),
+            'database' => env('DB_DATABASE', 'heroku_798886936f3ac16') ?? env('DB_DATABASE', 'id20189120_studyspot'),
             'username' => $DATABASE_URL["user"] ?? env('DB_USERNAME', 'id20189120_studyspot'),
             'password' => $DATABASE_URL["pass"] ?? env('DB_PASSWORD', 'Shampoo5=Feline=Darkness'),
             'unix_socket' => env('DB_SOCKET', ''),

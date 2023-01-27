@@ -63,6 +63,13 @@ body {
   font-size: 18px;
 }
 
+@-webkit-keyframes bang {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
 @keyframes bang {
   from {
     transform: translate3d(0, 0, 0);
@@ -687,8 +694,8 @@ ul li .sticky-note:focus {
 /* Responsiveness */
 @media (max-width: 590px) {
   .body-wrapper,
-  .footer-wrapper,
-  #create-field {
+.footer-wrapper,
+#create-field {
     width: 320px !important;
   }
   .main-body {
@@ -704,7 +711,7 @@ ul li .sticky-note:focus {
     margin-left: 0;
   }
   .side-content,
-  .side-content-wrapper {
+.side-content-wrapper {
     display: none;
   }
   #guidelines-popover {
@@ -780,4 +787,4 @@ ul li .sticky-note:focus {
 .form-input:focus {
   box-shadow: none;
   border: 1px solid var(--mich-blue);
-}
+}/*# sourceMappingURL=app.css.map */

@@ -85,7 +85,7 @@ class CommunityController extends Controller
         $community = Community::where('community_name', 'like', '%' . $search . '%')->first();
 
         if (!$community) {
-            abort(404);
+            return redirect()->to('/')->with('message', 'community not found! 🤷‍♀️  ');
         }
 
         return $this->show($community->community_name);

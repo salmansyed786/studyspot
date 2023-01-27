@@ -25,14 +25,20 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                                 <li>
-                                    <a class="dropdown-item searching">
-                                        <a href="/" class="btn material-symbols-outlined" id="takeMeHome">home</a>
-                                        <form class="d-flex" role="search" method="GET" action="/search">
-                                            <input class="form-control me-2 search-bar" type="search"
-                                                placeholder="community search" aria-label="Search" name="community"
-                                                autocomplete="off">
-                                        </form>
-                                    </a>
+                                    <div class="cmty-search">
+                                        <!-- Community Search Bar -->
+                                        <div class="container p-0" id="cmty-searchbar" style="width: 300px;">
+                                            <div class="" style="width: 100%;">
+                                                <div class="form-wrapper m-0 p-1">
+                                                    <form action="/search" method="GET" class="search-form">
+                                                        <a href="/" class="btn material-symbols-outlined home-btn" id="takeMeHome">home</a>
+                                                        <input type="search" class="form-control form-input" name="community" placeholder="community search..." autocomplete="off"
+                                                        style="text-indent: 50px;">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -59,12 +65,16 @@
                             </ul>
                         </div>
                         <!-- Search bar -->
-                        <div class="container" id="searchbar">
-                            <button type="button" class="btn navbar-btn create-btn material-symbols-outlined"
-                                data-bs-toggle="modal" data-bs-target="#search-modal" data-toggle="tooltip"
-                                data-placement="right" title="Search">
-                                search
-                            </button>
+                        <div class="container" id="all-searchbar">
+                            <div class="row height d-flex justify-content-center align-items-center" style="width: 100%;">
+                                <div class="col-md-6 form-wrapper">
+                                    <form action="/" method="GET" class="search-form">
+                                        <i class="fa fa-search"></i>
+                                        <input type="text" class="form-control form-input" name="search" placeholder="search anything..." autocomplete="off">
+                                        {{-- <span class="left-pan"><i class="fa fa-microphone"></i></span> --}}
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body" style="display: flex; align-items: center; flex-direction: column;">

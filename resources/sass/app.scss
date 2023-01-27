@@ -36,17 +36,16 @@ body {
     border: 1px solid #cad2da;
 }
 
-.searching:active {
+.cmty-search:active {
     background-color: white !important;
 }
 
-#takeMeHome:hover {
-    background-color: var(--mich-blue);
-    color: white;
-}
-
-#takeMeHome {
-    margin-right: 5px;
+.cmty-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px;
 }
 
 .searching {
@@ -269,13 +268,12 @@ small {
     padding: 3px;
 }
 
-#searchbar {
+#all-searchbar {
     display: flex;
     justify-content: end;
     align-items: center;
-    width: 45%;
+    width: 60%;
     margin: 0;
-    padding: 8px;
 }
 
 /* Create Post  */
@@ -745,4 +743,59 @@ ul li .sticky-note:focus {
 
 .form-group>label {
     margin-top: 5 !important;
+}
+
+// Search bar form
+.search-form {
+    position: relative;
+    margin: 0;
+}
+
+.form-wrapper {
+    width: 100%;
+}
+
+.search-form .fa-search {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: #9ca3af;
+}
+
+#takeMeHome {
+    background-color: var(--mich-blue);
+    color: white;
+}
+
+.search-form #takeMeHome {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+}
+
+.search-form span {
+    position: absolute;
+    right: 17px;
+    top: 13px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db;
+}
+
+.left-pan {
+    padding-left: 7px;
+}
+
+.left-pan i {
+    padding-left: 10px;
+}
+
+.form-input {
+    height: 45px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+.form-input:focus {
+    box-shadow: none;
+    border: 1px solid var(--mich-blue);
 }

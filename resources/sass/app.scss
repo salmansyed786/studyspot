@@ -97,6 +97,8 @@ body {
     border: none;
 }
 
+.cmty-card {}
+
 #create-cmt-btn:hover {
     background-color: var(--mich-maize) !important;
     color: var(--mich-blue) !important;
@@ -734,6 +736,7 @@ ul li .sticky-note:focus {
 /* Side Content Cmty Page */
 #side {
     width: 50% !important;
+    max-width: 450px;
     max-height: 50% !important;
 }
 

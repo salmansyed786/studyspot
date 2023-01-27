@@ -24,9 +24,10 @@
     @endif
 
     <!-- Community Page:  -->
-    <div class="container-fluid main-body">
-        <div class="container" style="display: flex;">
-            <!-- Body --> 
+    <div class="container-fluid main-body p-0">
+        <!-- Body --> 
+        <div class="container m-0" style="display: flex; min-width: 90%;">
+            <!-- Post --> 
             <div class="container body-wrapper">
                 <div class="card text-center" style="height: 100%;">
                     <div class="card-header">
@@ -111,10 +112,10 @@
             <!-- Side -->
             <div class="container body-wrapper" id="side">
                 <!-- About the Cmty -->
-                <div class="container" style="margin-bottom: 10px;">
+                <div class="container about-cmty" style="margin-bottom: 10px;">
                     <div class="card text-center" id="cmty-card">
                         <div class="card-header" style="display: flex; justify-content: center; max-height: 200px">
-                            <img class="card-img-top" src="{{ asset('images/study.png') }}" alt="Community Image" style="border: 1px #FFCB05 solid; border-radius: 2px; height: 150px; width: 150px;">
+                            <img class="card-img-top" src="{{ asset('images/study.png') }}" alt="Community Image" style="border-radius: 2px; height: 150px; width: 150px;">
                         </div>
 
                         <div class="card-body" style="display: flex; align-items: center; flex-direction: column;">
@@ -152,7 +153,7 @@
                     </div>
                 </div>
                 <!-- Recommended Communities -->
-                <div class="container">
+                <div class="container rec-cmty">
                     <div class="card text-center" id="cmty-card">
                         <div class="card-header" style="display: flex; justify-content: center;">
                             <label style="color:#FFCB05; font-size: 17px; padding: 10px;">

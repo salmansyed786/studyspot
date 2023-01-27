@@ -724,6 +724,7 @@ ul li .sticky-note:focus {
 /* Side Content Cmty Page */
 #side {
   width: 50% !important;
+  max-width: 450px;
   max-height: 50% !important;
 }
 

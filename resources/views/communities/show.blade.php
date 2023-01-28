@@ -115,7 +115,7 @@
                                 <h5 class="card-title">
                                     {{$cmty['community_name']}}
                                 </h5>
-                                <button data-bs-toggle="modal" data-bs-target="#cmtyEditModal" class="fa-solid fa-pencil btn" title="edit"></button>
+                                {{-- <button data-bs-toggle="modal" data-bs-target="#cmtyEditModal" class="fa-solid fa-pencil btn" title="edit"></button> --}}
                             </span>
 
                             <p class="card-text" style="width: 75%; margin: 0;">
